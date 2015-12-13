@@ -259,6 +259,16 @@ describe('color.getBackgroundColor', function () {
 		assert.closeTo(actual.alpha, expected.alpha, 0.1);
 	});
 
+	it('should return viewport to the original scroll position', function() {
+		fixture.innerHTML = '<div id="parent" style="height: 40px; width: 30px; ' +
+			'background-color: white; position: relative; z-index: 5">' +
+			'<div id="target" style="position: relative; top: 1px; height: 20px; ' +
+			'width: 25px; z-index: 25;">' + '</div>';
+		var targetEl = fixture.querySelector('#target');
+		var bgNodes = [];
 
+		commons.color.getBackgroundColor(targetEl, bgNodes);
 
+		assert.equal(window.pageYOffset, 0);
+	});
 });
